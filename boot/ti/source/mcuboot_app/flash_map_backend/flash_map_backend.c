@@ -186,11 +186,11 @@ int flash_area_read(const struct flash_area *fa, uint32_t off, void *dst,
     int rc = 0;
     size_t addr;
 
-    /* check if requested offset not less then flash area (fa) start */
-    assert(off < fa->fa_off);
-    assert(off + len < fa->fa_off);
     /* convert to absolute address inside a device*/
-        addr = fa->fa_off + off;
+    addr = fa->fa_off + off;
+
+    /* check if read is within bounds */
+    assert((addr + len) > (fa->fa_off + fa->fa_size))
 
     if (fa->fa_device_id == FLASH_DEVICE_INTERNAL_FLASH)
     {
