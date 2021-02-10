@@ -47,7 +47,9 @@
 #define MCUBOOT_LOG_LEVEL TRACE_LEVEL_DEBUG
 #endif
 
+#ifndef TRACE_MAX_LEVEL
 #define TRACE_MAX_LEVEL MCUBOOT_LOG_LEVEL
+#endif
 
 #if TRACE_MAX_LEVEL >= TRACE_LEVEL_DEBUG
 #define MCUBOOT_LOG_DBG(...)           trace_printf(TRACE_LEVEL_DEBUG,   TRACE_GROUP, __VA_ARGS__)   //!< Print debug message

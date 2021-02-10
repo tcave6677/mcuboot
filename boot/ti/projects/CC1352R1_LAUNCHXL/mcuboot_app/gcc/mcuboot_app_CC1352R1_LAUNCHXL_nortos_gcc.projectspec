@@ -80,7 +80,6 @@
         <pathVariable name="APP_ROOT" path="${GIT_ROOT}/boot/ti/source/mcuboot_app" scope="project"/>
         <pathVariable name="PLATFORM" path="${GIT_ROOT}/boot/ti/source/platform/CC1352R1_LAUNCHXL" scope="project"/>
         
-
         <file path="${APP_ROOT}/mcuboot_app.c" openOnCreation="false" excludeFromBuild="false" action="link">
         </file>
         <file path="${APP_ROOT}/README.md" openOnCreation="false" excludeFromBuild="false" action="link">

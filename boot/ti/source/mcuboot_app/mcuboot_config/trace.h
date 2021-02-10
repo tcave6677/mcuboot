@@ -39,6 +39,36 @@
 /** Error prints, which causes probably problems, e.g. out of mem. */
 #define TRACE_LEVEL_ERROR         0x02
 
+#ifndef TRACE_LOG_LEVEL
+#define TRACE_LOG_LEVEL TRACE_LEVEL_DEBUG
+#endif
+
+#define TRACE_MAX_LEVEL TRACE_LOG_LEVEL
+
+#if TRACE_MAX_LEVEL >= TRACE_LEVEL_DEBUG
+#define TRACE_LOG_DBG(...)           trace_printf(TRACE_LEVEL_DEBUG,   TRACE_GROUP, __VA_ARGS__)   //!< Print debug message
+#else
+#define TRACE_LOG_DBG(...)
+#endif
+
+#if TRACE_MAX_LEVEL >= TRACE_LEVEL_INFO
+#define TRACE_LOG_INF(...)            trace_printf(TRACE_LEVEL_INFO,    TRACE_GROUP, __VA_ARGS__)   //!< Print info message
+#else
+#define TRACE_LOG_INF(...)
+#endif
+
+#if TRACE_MAX_LEVEL >= TRACE_LEVEL_WARN
+#define TRACE_LOG_WRN(...)         trace_printf(TRACE_LEVEL_WARN,    TRACE_GROUP, __VA_ARGS__)   //!< Print warning message
+#else
+#define TRACE_LOG_WRN(...)
+#endif
+
+#if TRACE_MAX_LEVEL >= TRACE_LEVEL_ERROR
+#define TRACE_LOG_ERR(...)           trace_printf(TRACE_LEVEL_ERROR,   TRACE_GROUP, __VA_ARGS__)   //!< Print Error Message
+#else
+#define TRACE_LOG_ERR(...)
+#endif
+
 #ifdef EXCLUDE_TRACE
 
 #define trace_init()

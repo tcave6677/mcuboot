@@ -125,24 +125,27 @@ void *mainThread(void *arg0)
 
     bootStatus = boot_go(&bootRsp);
 
-    MCUBOOT_LOG_INF("bootRsp: status=%x, offset = %x, ver=%d.%d.%d.%d",
-                        bootStatus,
-                        bootRsp.br_image_off,
-                        bootRsp.br_hdr->ih_ver.iv_major,
-                        bootRsp.br_hdr->ih_ver.iv_minor,
-                        bootRsp.br_hdr->ih_ver.iv_revision,
-                        bootRsp.br_hdr->ih_ver.iv_build_num);
-
-    if(FIH_SUCCESS == bootStatus)
+    if(IMAGE_MAGIC == bootRsp.br_hdr->ih_magic)
     {
+        MCUBOOT_LOG_INF("bootRsp: slot = %x, offset = %x, ver=%d.%d.%d.%d",
+                            bootStatus,
+                            bootRsp.br_image_off,
+                            bootRsp.br_hdr->ih_ver.iv_major,
+                            bootRsp.br_hdr->ih_ver.iv_minor,
+                            bootRsp.br_hdr->ih_ver.iv_revision,
+                            bootRsp.br_hdr->ih_ver.iv_build_num);
+
         do_boot(&bootRsp);
     }
     else
     {
+        MCUBOOT_LOG_INF("bootRsp: no image found");
         while(1)
         {
             usleep(BLINK_INTERVAL);
             GPIO_write(CONFIG_GPIO_LED_0, !GPIO_read(CONFIG_GPIO_LED_0));
         }
     }
+
+    return 0;
 }
